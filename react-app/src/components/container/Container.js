@@ -6,6 +6,9 @@ import axios from "axios"
 
 import Home from "./../home/Home"
 import Mine from "../mine/Mine"
+import Buy from "../buy/Buy"
+import Sell from "../sell/Sell"
+import Ledger from "../ledger/Ledger"
 
 class Container extends React.Component {
   constructor(props) {
@@ -39,6 +42,9 @@ class Container extends React.Component {
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={Home} />
             <Route path="/mine" render={() => <Mine mineShintoCoinFunc={this.mineShintoCoin} />} />
+            <Route path="/buy" component={Buy} />
+            <Route path="/sell" component={Sell} />
+            <Route path="/ledger" component={Ledger} />
           </Switch>
         </BrowserRouter>
       </div>
