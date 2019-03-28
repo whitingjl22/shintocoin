@@ -29,8 +29,6 @@ class Container extends React.Component {
     return (
       <div>
         <BrowserRouter>
-          <h1>ShintoCoin Container Page</h1>
-
           <Navbar />
 
           <Switch>
