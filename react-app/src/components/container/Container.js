@@ -108,7 +108,7 @@ class Container extends React.Component {
               )}
             />
             <Route path="/ledger/:id" component={LedgerDetails} />
-            <Route path="/ledger" component={Ledger} />
+            <Route path="/ledger" render={() => <Ledger ledger={this.state.ledger} />} />
           </Switch>
         </BrowserRouter>
       </div>
