@@ -29,7 +29,7 @@ class Mine extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log("Mine Page State:", this.state)
     return (
       <div>
         <h1>Mine ShintoCoins</h1>

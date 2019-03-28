@@ -12,9 +12,13 @@ class Container extends React.Component {
     super(props)
     this.state = {
       userCoins: 0,
-      ledger: [],
+      ledger: [], // action:, amount:
       shintoValuation: 1
     }
+  }
+
+  componentDidMount() {
+    console.log("componentDidMount")
   }
 
   mineShintoCoin = () => {
