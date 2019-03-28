@@ -9,6 +9,7 @@ import Mine from "../mine/Mine"
 import Buy from "../buy/Buy"
 import Sell from "../sell/Sell"
 import Ledger from "../ledger/Ledger"
+import LedgerDetails from "../ledgerDetails/ledgerDetails"
 
 class Container extends React.Component {
   constructor(props) {
@@ -22,17 +23,61 @@ class Container extends React.Component {
 
   componentDidMount() {
     console.log("componentDidMount")
+
+    axios
+      .get("http://localhost:1337/ledger")
+      .then((response) => {
+        console.log(response.data)
+
+        this.setState({
+          userCoins: response.data.coinbank,
+          ledger: response.data.ledger,
+          shintoValuation: response.data.valuation
+        })
+      })
+      .catch((error) => {
+        console.log("Container componentDidMount Error", error)
+      })
+  }
+
+  updateDataStore = (action, amount) => {
+    axios.post("http://localhost:1337/ledger", { action, amount }).then((response) => {
+      console.log("post response coming back from server:", response.data)
+
+      this.setState({
+        userCoins: response.data.coinbank,
+        ledger: [
+          ...this.state.ledger,
+          {
+            id: response.data.id,
+            action: response.data.action,
+            createdAt: response.data.createdAt,
+            amount: response.data.amount,
+            valuation: response.data.valuation
+          }
+        ],
+        shintoValuation: response.data.valuation
+      })
+    })
   }
 
   mineShintoCoin = () => {
     console.log("mineShintoCoinFunc called")
+    this.updateDataStore("Mined", 1)
+  }
 
-    axios.post("/ledger", { action: "Mined", amount: 1 }).then((response) => {
-      console.log(response.data)
-    })
+  buyShintoCoins = (amount) => {
+    console.log("buyShintoCoinsFunc called")
+    this.updateDataStore("Bought", amount)
+  }
+
+  sellShintoCoins = (amount) => {
+    console.log("sellShintoCoinsFunc called")
+    this.updateDataStore("Sold", amount)
   }
 
   render() {
+    console.log("Container Page State:", this.state)
     return (
       <div>
         <BrowserRouter>
@@ -42,8 +87,27 @@ class Container extends React.Component {
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={Home} />
             <Route path="/mine" render={() => <Mine mineShintoCoinFunc={this.mineShintoCoin} />} />
-            <Route path="/buy" component={Buy} />
-            <Route path="/sell" component={Sell} />
+            <Route
+              path="/buy"
+              render={() => (
+                <Buy
+                  buyShintoCoinsFunc={this.buyShintoCoins}
+                  userCoins={this.state.userCoins}
+                  shintoValuation={this.state.shintoValuation}
+                />
+              )}
+            />
+            <Route
+              path="/sell"
+              render={() => (
+                <Sell
+                  sellShintoCoinsFunc={this.sellShintoCoins}
+                  userCoins={this.state.userCoins}
+                  shintoValuation={this.state.shintoValuation}
+                />
+              )}
+            />
+            <Route path="/ledger/:id" component={LedgerDetails} />
             <Route path="/ledger" component={Ledger} />
           </Switch>
         </BrowserRouter>

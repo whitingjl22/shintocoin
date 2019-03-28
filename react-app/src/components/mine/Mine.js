@@ -12,13 +12,14 @@ class Mine extends React.Component {
     this.setState({ [e.target.id]: e.target.value })
   }
 
-  answerFunc = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault()
-    console.log(`Button Clicked`)
+    console.log(`Mine Button Clicked`)
 
     if (this.state.answer === "yes") {
       this.props.mineShintoCoinFunc()
     } else {
+      alert(`You answered "No" to Mine ShintoCoins`)
     }
 
     console.log(`resetting`)
@@ -37,7 +38,7 @@ class Mine extends React.Component {
           Here you can mine ShintoCoins by being the first to solve the algorithm: <br />
           Do you want to mine a ShintoCoin? (yes/no)
         </p>
-        <form onSubmit={this.answerFunc}>
+        <form onSubmit={this.handleSubmit}>
           <input className="mineInputBox" id="answer" type="text" placeholder="Answer" onChange={this.handleChange} />
           <button>Mine</button>
         </form>

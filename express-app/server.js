@@ -8,15 +8,15 @@ app.use(express.static("./../react-app/build/"))
 
 app.post("/ledger", (request, response) => {
   console.log("request body:", request.body)
-  var ledgerResponse
-  var value
-  var coins
+  let ledgerResponse
+  let value
+  let coins
 
-  //get shinto bank
-  //calculate change in coins and value
-  //put new coins and value to shintobank
-  //post ledger entry to ledger
-  //return ledger entry and value and coins
+  // get shinto bank
+  // calculate change in coins and value
+  // put new coins and value to shintobank
+  // post ledger entry to ledger
+  // return ledger entry and value and coins
 
   // Get the current valuation and coins owned
   axios
@@ -46,15 +46,37 @@ app.post("/ledger", (request, response) => {
 
       // Post transaction to the ledger
       postRequest = { ...request.body, valuation: value }
-      console.log("postRequest", request.body) // I AM HERE
+      console.log("postRequest:", postRequest)
       return axios.post("http://5c992ab94236560014393239.mockapi.io/ledger", postRequest)
     })
     .then((ledgerPostResponse) => {
-      //Return the transaction and updated info
+      console.log("ledgerPostResponse", ledgerPostResponse.data)
+      console.log("coinbank:", coins)
+
+      // Return the transaction and updated info
       return response.json({ ...ledgerPostResponse.data, coinbank: coins })
     })
     .catch((error) => {
-      console.log("ERROR")
+      console.log("ERROR", error)
+    })
+})
+
+// Get current ledger, coins, and value
+app.get("/ledger", (request, response) => {
+  console.log("Get Everything")
+  let value, coins
+
+  axios
+    .get("http://5c992ab94236560014393239.mockapi.io/shintobank/1")
+    .then((bankGetResponse) => {
+      value = parseInt(bankGetResponse.data.valuation)
+      coins = parseInt(bankGetResponse.data.coinbank)
+      console.log("Value ", value, "Coins ", coins)
+
+      return axios.get("http://5c992ab94236560014393239.mockapi.io/ledger")
+    })
+    .then((ledgerGetResponse) => {
+      return response.json({ ledger: ledgerGetResponse.data, valuation: value, coinbank: coins })
     })
 })
 
