@@ -1,0 +1,15 @@
+h1 {
+  text-align: left;
+  margin-left: 5px;
+}
+
+p {
+  text-align: left;
+  margin-left: 5px;
+}
+
+form {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 5px;
+}
