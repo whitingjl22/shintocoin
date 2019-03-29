@@ -7,7 +7,7 @@ const path = require("path")
 app.use(bodyParser.json())
 app.use(express.static(__dirname + "./../react-app/build/"))
 
-app.post("/ledger", (request, response) => {
+app.post("/api/ledger", (request, response) => {
   console.log("request body:", request.body)
 
   let postRequest, value, coins
@@ -56,7 +56,7 @@ app.post("/ledger", (request, response) => {
 })
 
 // Get current ledger, coins, and value
-app.get("/ledger", (request, response) => {
+app.get("/api/ledger", (request, response) => {
   console.log("Get Everything")
 
   let value, coins
@@ -76,7 +76,7 @@ app.get("/ledger", (request, response) => {
 })
 
 // Get current ledger, coins, and value for ledger transaction details
-app.get("/ledger/:id", (request, response) => {
+app.get("/api/ledger/:id", (request, response) => {
   console.log("Fetching ledger transaction details")
 
   axios.get(`http://5c992ab94236560014393239.mockapi.io/ledger/${request.params.id}`).then((ledgerGetResponse) => {

@@ -5,7 +5,7 @@ import "./Navbar.css"
 
 const Navbar = (props) => {
   return (
-    <div>
+    <div className="navBar">
       <ul>
         <li>
           <Link to="/home">Home</Link>

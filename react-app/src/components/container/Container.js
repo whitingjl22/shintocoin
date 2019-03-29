@@ -16,7 +16,7 @@ class Container extends React.Component {
     super(props)
     this.state = {
       userCoins: 0,
-      ledger: [], // action:, amount:
+      ledger: [], // { action:, amount:, etc }
       shintoValuation: 1
     }
   }
@@ -25,7 +25,7 @@ class Container extends React.Component {
     console.log("componentDidMount")
 
     axios
-      .get("http://localhost:1337/ledger")
+      .get("http://localhost:1337/api/ledger")
       .then((response) => {
         console.log(response.data)
 
@@ -41,7 +41,7 @@ class Container extends React.Component {
   }
 
   updateDataStore = (action, amount) => {
-    axios.post("http://localhost:1337/ledger", { action, amount }).then((response) => {
+    axios.post("http://localhost:1337/api/ledger", { action, amount }).then((response) => {
       console.log("post response coming back from server:", response.data)
 
       this.setState({
