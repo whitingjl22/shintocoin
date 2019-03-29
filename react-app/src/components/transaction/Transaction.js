@@ -24,16 +24,14 @@ class Transaction extends React.Component {
         <h1>Ledger Transaction Details</h1>
         <p>Detailed view of a transaction from the ledger.</p>
 
-        {this.state.transaction !== null ? (
+        {this.state.transaction ? (
           <p>
             Transaction #{this.state.transaction.id} <br />
             <br />
             Action: {this.state.transaction.action} {this.state.transaction.amount} ShintoCoin <br />
             ShintoCoin Value: ${this.state.transaction.valuation} (after transaction) <br />
           </p>
-        ) : (
-          <h6>Transaction #{this.props.match.params.id} was not found.</h6>
-        )}
+        ) : null}
       </div>
     )
   }

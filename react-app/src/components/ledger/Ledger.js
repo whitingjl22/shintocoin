@@ -1,6 +1,7 @@
 import React from "react"
 // import LedgerEntry from "../ledgerEntry/LedgerEntry"
 // import "./Ledger.css"
+import { Link } from "react-router-dom"
 
 // const Ledger = (props) => {
 //   let entries = props.ledger.map((entry) => (
@@ -38,11 +39,14 @@ const Ledger = (props) => {
         <ul>
           {props.ledger.map((entry, idx) => {
             return (
-              <li key={idx}>
-                <p>Action: {entry.action}</p>
-                <p>Amount: {entry.amount}</p>
-                <p>Valuation: {entry.valuation}</p>
-                <p>Id: {entry.id}</p>
+              <li key={entry.id}>
+                Action: {entry.action}
+                Amount: {entry.amount}
+                Valuation: {entry.valuation}
+                Id: {entry.id}
+                <Link to={"/transaction/" + props.id} className="details">
+                  Details
+                </Link>
               </li>
             )
           })}
