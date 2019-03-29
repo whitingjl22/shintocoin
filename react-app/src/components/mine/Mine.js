@@ -39,7 +39,7 @@ class Mine extends React.Component {
           Do you want to mine a ShintoCoin? (yes/no)
         </p>
         <form onSubmit={this.handleSubmit}>
-          <input className="mineInputBox" id="answer" type="text" placeholder="Answer" onChange={this.handleChange} />
+					<input className="mineInputBox" id="answer" type="text" placeholder="Answer" onChange={this.handleChange} value={this.state.answer} />
           <button>Mine</button>
         </form>
       </div>

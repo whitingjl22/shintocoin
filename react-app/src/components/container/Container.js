@@ -9,7 +9,7 @@ import Mine from "../mine/Mine"
 import Buy from "../buy/Buy"
 import Sell from "../sell/Sell"
 import Ledger from "../ledger/Ledger"
-import LedgerDetails from "../ledgerDetails/ledgerDetails"
+import Transaction from "../transaction/Transaction"
 
 class Container extends React.Component {
   constructor(props) {
@@ -78,11 +78,11 @@ class Container extends React.Component {
 
   render() {
     console.log("Container Page State:", this.state)
+    console.log("LEDGER", this.state.ledger)
     return (
       <div>
         <BrowserRouter>
           <Navbar />
-
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={Home} />
@@ -107,8 +107,8 @@ class Container extends React.Component {
                 />
               )}
             />
-            <Route path="/ledger/:id" component={LedgerDetails} />
             <Route path="/ledger" render={() => <Ledger ledger={this.state.ledger} />} />
+            <Route path="/transaction/:id" render={(props) => <Transaction {...props} />} />
           </Switch>
         </BrowserRouter>
       </div>

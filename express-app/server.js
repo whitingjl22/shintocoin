@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const axios = require("axios")
 
 app.use(bodyParser.json())
-app.use(express.static("./../react-app/build/"))
+app.use(express.static(__dirname + "./../react-app/build/"))
 
 app.post("/ledger", (request, response) => {
   console.log("request body:", request.body)
@@ -78,6 +78,20 @@ app.get("/ledger", (request, response) => {
     .then((ledgerGetResponse) => {
       return response.json({ ledger: ledgerGetResponse.data, valuation: value, coinbank: coins })
     })
+})
+
+// Get current ledger, coins, and value for ledger transaction details
+app.get("/ledger/:id", (request, response) => {
+  console.log("Fetching ledger transaction details")
+
+  axios.get(`http://5c992ab94236560014393239.mockapi.io/ledger/${request.params.id}`).then((ledgerGetResponse) => {
+    return response.json(ledgerGetResponse.data)
+  })
+})
+
+// This is currently not working...
+app.get("*", (request, response) => {
+  response.sendFile(path.resolve(__dirname + "/../react-app/build/index.html"))
 })
 
 // SERVER LISTENING
