@@ -15,15 +15,12 @@ class Mine extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     console.log(`Mine Button Clicked`)
-
     if (this.state.answer === "yes") {
       this.props.mineShintoCoinFunc()
     } else {
       alert(`You answered "No" to Mine ShintoCoins`)
     }
-
     console.log(`resetting`)
-    e.target.reset()
     this.setState({
       answer: ""
     })
@@ -39,7 +36,14 @@ class Mine extends React.Component {
           Do you want to mine a ShintoCoin? (yes/no)
         </p>
         <form onSubmit={this.handleSubmit}>
-					<input className="mineInputBox" id="answer" type="text" placeholder="Answer" onChange={this.handleChange} value={this.state.answer} />
+          <input
+            className="mineInputBox"
+            id="answer"
+            type="text"
+            placeholder="Answer"
+            onChange={this.handleChange}
+            value={this.state.answer}
+          />
           <button>Mine</button>
         </form>
       </div>

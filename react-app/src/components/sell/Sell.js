@@ -16,11 +16,9 @@ class Sell extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     console.log(`Sell Button Clicked`)
-
     if (this.props.userCoins > 0 && this.props.userCoins >= this.state.amount) {
       this.props.sellShintoCoinsFunc(this.state.amount)
     }
-
     console.log(`resetting`)
     this.setState({
       amount: 0

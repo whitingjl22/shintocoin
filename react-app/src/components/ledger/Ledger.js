@@ -1,5 +1,6 @@
 import React from "react"
 import LedgerEntry from "../ledgerEntry/LedgerEntry"
+import "./Ledger.css"
 
 const Ledger = (props) => {
   let entries = props.ledger.map((entry) => (

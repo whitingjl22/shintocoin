@@ -17,7 +17,6 @@ class Buy extends React.Component {
     e.preventDefault()
     console.log(`Buy Button Clicked`)
     this.props.buyShintoCoinsFunc(this.state.amount)
-
     console.log(`resetting`)
     this.setState({
       amount: 0
@@ -35,7 +34,15 @@ class Buy extends React.Component {
           Number of ShintoCoins Owned: {this.props.userCoins}
         </p>
         <form onSubmit={this.handleSubmit}>
-          <input className="buyInputBox" id="amount" type="number" placeholder="Number" min="1" onChange={this.handleChange} value={this.state.amount} />
+          <input
+            className="buyInputBox"
+            id="amount"
+            type="number"
+            placeholder="Number"
+            min="1"
+            onChange={this.handleChange}
+            value={this.state.amount}
+          />
           <button>Buy</button>
         </form>
       </div>
