@@ -2,30 +2,24 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const axios = require("axios")
+const path = require("path")
 
 app.use(bodyParser.json())
 app.use(express.static(__dirname + "./../react-app/build/"))
 
 app.post("/ledger", (request, response) => {
   console.log("request body:", request.body)
-  let ledgerResponse
-  let value
-  let coins
 
-  // get shinto bank
-  // calculate change in coins and value
-  // put new coins and value to shintobank
-  // post ledger entry to ledger
-  // return ledger entry and value and coins
+  let postRequest, value, coins
 
   // Get the current valuation and coins owned
   axios
     .get("http://5c992ab94236560014393239.mockapi.io/shintobank/1")
-    .then((ledgerGetResponse) => {
-      console.log("ledgerGetResponse:", ledgerGetResponse.data)
+    .then((bankGetResponse) => {
+      console.log("bankGetResponse:", bankGetResponse.data)
 
-      value = parseInt(ledgerGetResponse.data.valuation)
-      coins = parseInt(ledgerGetResponse.data.coinbank)
+      value = parseInt(bankGetResponse.data.valuation)
+      coins = parseInt(bankGetResponse.data.coinbank)
       console.log("Value:", value, "Coins:", coins)
 
       // Based on action either add or submit
@@ -64,6 +58,7 @@ app.post("/ledger", (request, response) => {
 // Get current ledger, coins, and value
 app.get("/ledger", (request, response) => {
   console.log("Get Everything")
+
   let value, coins
 
   axios
@@ -89,9 +84,8 @@ app.get("/ledger/:id", (request, response) => {
   })
 })
 
-// This is currently not working...
 app.get("*", (request, response) => {
-  response.sendFile(path.resolve(__dirname + "/../react-app/build/index.html"))
+  response.sendFile(path.resolve(__dirname + "./../react-app/build/index.html"))
 })
 
 // SERVER LISTENING
