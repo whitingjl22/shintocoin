@@ -10,7 +10,7 @@ class Transaction extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:1337/ledger/${this.props.match.params.id}`).then((response) => {
+    axios.get(`http://localhost:1337/api/ledger/${this.props.match.params.id}`).then((response) => {
       this.setState({
         transaction: response.data
       })
